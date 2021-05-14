@@ -117,7 +117,7 @@ async def async_f(x):
 
 if __name__ == '__main__':
     """
-    使用asyncio异步池实现10并发，可以任意时候动态追加任务到loop循环里面。
+    使用asyncio异步池实现10并发，可以任意时候动态追加任务到loop循环里面。写法极其简单。
     """
     
     pool = AsyncPoolExecutor(10)
