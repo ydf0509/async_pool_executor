@@ -7,8 +7,46 @@
 ```
 主要功能是仿照 concurrent.futures 的线程池报的submit shutdown方法。
 
-使得在做生产 消费 时候，无需学习烦人的异步 loop 、 run_until_complete ，可以直接在同步函数中 submit。
+使得在做生产 消费 时候，无需学习烦人的异步思维写代码 ，可以直接在同步函数中 submit。
 生产和消费不需要在同一个loop中，喜欢同步编程思维的人可以用这个。
+
+async def 的函数，定义协程函数本身不难，难的是如果要并发起来执行，要搞懂以下这些概念，
+以下这些概念非常多十分之复杂，asyncio的并发玩法与同步函数 + 线程池并发写法区别很大，asyncio的并发写法难度大太多。
+异步要想玩的溜，用户必须精通的常用方法和对象的概念包括以下：
+
+loop 对象
+asyncio.get_event_loop 方法
+asyncio.new_event_loop 方法
+asyncio.set_event_loop 方法
+asyncio.ensure_future  方法
+asyncio.create_task 方法
+asyncio.wait  方法
+asyncio.gather  方法
+asyncio.run_coroutine_threadsafe 方法
+loop.run_in_executor 方法
+run_until_complete  方法
+run_forever 方法
+future 对象
+task  对象
+corotinue 对象
+
+```
+
+```
+上面的概念学会要比学怎么使用线程池难太多了，写法代码也更繁琐。但有了这个AsyncPoolExecutor这个包，
+上面所有的概念用户都不需要学了，写起异步并发来简化了10倍。
+```
+
+```python
+import asyncio
+
+async def async_f(x):
+    await asyncio.sleep(2)
+    print(x)
+
+pool = AsyncPoolExecutor(3)
+for i in range(30):
+    pool.submit(async_f,i)
 
 ```
 
@@ -146,9 +184,9 @@ if __name__ == '__main__':
 
 ```
 
-### csdn的 python3 异步 asyncio 动态添加任务
+### csdn 的 python3 异步 asyncio 动态添加任务
 
-[asyncio python3 异步 asyncio 动态添加任务](https://blog.csdn.net/whatday/article/details/106886811) 
+[csdn 的 asyncio python3 异步 asyncio 动态添加任务](https://blog.csdn.net/whatday/article/details/106886811) 
 
 里面的写法复杂到吓人,所以需要 AsyncPoolExecutor 这个异步池来减小码农的编程难度。
 
