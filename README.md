@@ -97,6 +97,8 @@ if __name__ == '__main__':
 
 #### 下面的例子是对比AsyncPoolExecutor 和临时手写操作loop 和task
 
+###### 这个例子还没有实现随时动态追加协程任务，写法就已经很繁琐了。
+
 ```
 如果是没有async_pool_executor，那就要手动操作 asyncio.wait/gather run_until_complete future task corotinue 这些复杂的概念。
 
@@ -178,3 +180,4 @@ t.start()
 asyncio.run_coroutine_threadsafe(do_some_work(6), new_loop)
 asyncio.run_coroutine_threadsafe(do_some_work(4), new_loop)
 ```
+
