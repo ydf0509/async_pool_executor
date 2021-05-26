@@ -53,12 +53,14 @@ class AsyncPoolExecutor:
         self._can_be_closed_flag = True
 
     def shutdown(self):
-        for _ in range(self._size):
-            self.submit('stop', )
-        while not self._can_be_closed_flag:
-            time.sleep(0.1)
-        self.loop.close()
-        print('关闭循环')
+        if self.loop.is_running():  # 这个可能是atregster触发，也可能是用户手动调用，需要判断一下，不能关闭两次。
+            for _ in range(self._size):
+                self.submit('stop', )
+            while not self._can_be_closed_flag:
+                time.sleep(0.1)
+            self.loop.stop()
+            self.loop.close()
+            print('关闭循环')
 
 
 if __name__ == '__main__':
