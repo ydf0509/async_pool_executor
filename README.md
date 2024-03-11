@@ -129,7 +129,7 @@ if __name__ == '__main__':
         pool.submit(async_f,i)
 ```
 
-### 对比没使用 asyncio，如果进行10并发调度协程并实现asyncio动态追加任务，太难了。
+### 对比没使用 async_pool_executor，如果进行10并发调度协程并实现asyncio动态追加任务，太难了。
 
 
 
