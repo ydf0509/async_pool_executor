@@ -5,7 +5,7 @@ import traceback
 from threading import Thread
 
 
-class AsyncPoolExecutor:
+class AsyncPoolExecutorInSync:
     """
     使api和线程池一样，最好的性能做法是submit也弄成 async def，生产和消费在同一个线程同一个loop一起运行，但会对调用链路的兼容性产生破坏，从而调用方式不兼容线程池。
     """
@@ -69,6 +69,6 @@ if __name__ == '__main__':
         await asyncio.sleep(2)
         print(x)
 
-    pool  =AsyncPoolExecutor(3)
+    pool  =AsyncPoolExecutorInSync(3)
     for i in range(30):
         pool.submit(async_f,i)
